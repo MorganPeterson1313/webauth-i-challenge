@@ -1,11 +1,11 @@
-const bcrypt = require('bcryptjs');
+// const bcrypt = require('bcryptjs');
 
-const Users = require('../users/users-model.js');
+// const Users = require('../users/users-model.js');
 
 module.exports = (req, res, next) => {
-
+console.log(req.session.user)
   if (req.session && req.session.user) {
-  next()
+  next();
   } else {
     res.status(401).json({ message: 'you shall not pass' });
   }
