@@ -33,9 +33,10 @@ store: new knexSessionStore({
 
 const server = express();
 
-server.use(helmet());
+
 server.use(express.json());
 server.use(cors());
+server.use(helmet());
 server.use(session(sessionOptions));
 
 server.use('/api/auth', authRouter);
