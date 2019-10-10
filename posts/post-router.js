@@ -3,7 +3,7 @@ const Posts = require("./post-model");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const post = await Posts.findAllPostsByUser(id);
 
@@ -28,7 +28,7 @@ router.post("/new", async (req, res) => {
   }
 });
 
-router.put("/post/:id", async (req, res) => {
+router.put("/posts/:id", async (req, res) => {
   const { id } = req.params;
   const change = req.body;
 
@@ -47,7 +47,7 @@ router.put("/post/:id", async (req, res) => {
   }
 });
 
-router.delete("/post/:id", async (req, res) => {
+router.delete("/posts/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
