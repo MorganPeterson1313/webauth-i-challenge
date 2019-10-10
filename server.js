@@ -48,4 +48,11 @@ server.get('/', (req, res) => {
   res.json({ api: 'up' });
 });
 
+
+server.get('/api/posts', function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for all origins!'})
+})
+
+
+
 module.exports = server;
