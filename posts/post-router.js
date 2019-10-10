@@ -2,7 +2,6 @@ const express = require("express");
 const Posts = require("./post-model");
 
 const router = express.Router();
-
 router.get("/", async (request, response) => {
     try{
         const posts = await
