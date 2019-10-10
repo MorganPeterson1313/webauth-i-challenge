@@ -52,7 +52,7 @@ server.use(express.json());
 server.use(helmet());
 server.use(session(sessionOptions));
 
-
+server.options('*', cors())
 server.use('/api/posts', postsRouter);
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
@@ -76,6 +76,22 @@ server.get('/api/posts', function (req, res, next) {
 // server.del('/', cors(), function (req, res, next) {
 //   res.json({msg: 'This is CORS-enabled for a Single Route'})
 // })
+
+
+var whitelist = ['https://fitforthesoul.netlify.com']
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
+
+server.get('/api/posts', cors(corsOptions), function (req, res, next) {
+  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
+})
 
 
 server.listen(80, function () {
