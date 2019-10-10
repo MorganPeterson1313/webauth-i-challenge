@@ -3,16 +3,16 @@ const Posts = require("./post-model");
 
 const router = express.Router();
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const post = await Posts.findAllPostsByUser(id);
+router.get("/", async (req, res) => {
+  const  posts = req.body;
+  const post = await Posts.findPostsBy(posts);
 
   try {
     res.status(200).json(post);
   } catch ({ err }) {
     res.status(500).json({
       err,
-      message: `Could not retrieve posts from user with id of ${id}...`
+      message: `Could not retrieve posts...`
     });
   }
 });
