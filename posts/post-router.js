@@ -6,8 +6,7 @@ router.get("/", async (request, response) => {
     try{
         const posts = await
 Posts.find(request.query);
-
-    response.status(200).json(posts);
+response.status(200).json(posts);
     }
 catch (err) {
     response.status(500).json({success:false,err})
