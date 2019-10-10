@@ -2,19 +2,13 @@ const session = require('express-session');
 const knexSessionStore = require('connect-session-knex')(session);
 const bcrypt = require('bcryptjs');
 const express = require('express');
-const helmet = require('helmet');
 
+const helmet = require('helmet');
 const server = express();
 
-server.use((req , res , next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Credentials", true);
-res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-next();
-});
+
 const cors = require('cors');
-server.use(cors());
+
 
 
 
@@ -49,10 +43,9 @@ store: new knexSessionStore({
 
 
 server.use(express.json());
-
+server.use(cors());
 server.use(helmet());
 server.use(session(sessionOptions));
-
 server.options('*', cors())
 server.use('/api/posts', postsRouter);
 server.use('/api/auth', authRouter);
@@ -65,34 +58,37 @@ server.use('/api/users', usersRouter);
 
 
 
-server.get('/api/posts', function (req, res, next) {
+server.get('/api/posts/', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
 
-
+// server.use((req , res , next) => {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Credentials", true);
+// res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+// res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+// next();
+// });
 
  
-// server.options('/', cors()) // enable pre-flight request for DELETE request
-// server.del('/', cors(), function (req, res, next) {
-//   res.json({msg: 'This is CORS-enabled for a Single Route'})
+
+
+
+// var whitelist = ['https://fitforthesoul.netlify.com']
+// var corsOptions = {
+//   origin: function (origin, callback) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true)
+//     } else {
+//       callback(new Error('Not allowed by CORS'))
+//     }
+//   }
+// }
+
+// server.get('/api/posts', cors(corsOptions), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
 // })
-
-
-var whitelist = ['https://fitforthesoul.netlify.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
-
-server.get('/api/posts', cors(corsOptions), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a whitelisted domain.'})
-})
 
 
 server.listen(80, function () {

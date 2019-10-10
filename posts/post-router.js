@@ -8,19 +8,26 @@ const router = express.Router();
 
 
 
-router.get("/", async (request, response) => {
-    try{
-        const posts = await
-Posts.find(request.query);
-response.status(200).json(posts);
-    }
-catch (err) {
-    response.status(500).json({success:false,err})
-}
+// router.get("/", async (request, response) => {
+//     try{
+//         const posts = await
+// Posts.find(request.query);
+// response.status(200).json(posts);
+//     }
+// catch (err) {
+//     response.status(500).json({success:false,err})
+// }
 
+// });
+  
+router.get('/posts', async (req, res) => {
+  try {
+    const posts = await Posts.find();
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to get posts' });
+  }
 });
-  
-  
 
 //     const  posts = req.body;
 

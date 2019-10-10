@@ -2,7 +2,7 @@ const db = require("../data/dbConfig");
 
 module.exports = {
   addPost,
-  findPostBy,
+  // findPostBy,
   findAllPostsByUser,
   findPostById,
   updatePost,
@@ -12,7 +12,7 @@ module.exports = {
 
 
 function find() {
-    return db('posts').select('*');
+    return db('posts').select("*");
   }
   
 
