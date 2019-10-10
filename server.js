@@ -41,27 +41,29 @@ server.use(express.json());
 server.use(helmet());
 server.use(session(sessionOptions));
 
+
+server.use('/api/posts', postsRouter);
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
-server.use('/api/posts', postsRouter);
 
-server.get('/', (req, res) => {
-  res.json({ api: 'up' });
-});
+
+// server.get('/', (req, res) => {
+//   res.json({ api: 'up' });
+// });
 
 
 server.get('/api/posts', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for all origins!'})
+  res.json({msg: 'This is CORS-enabled for a Single Route'})
 })
 
 
 
 
  
-server.options('/', cors()) // enable pre-flight request for DELETE request
-server.del('/', cors(), function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a Single Route'})
-})
+// server.options('/', cors()) // enable pre-flight request for DELETE request
+// server.del('/', cors(), function (req, res, next) {
+//   res.json({msg: 'This is CORS-enabled for a Single Route'})
+// })
 
 
 server.listen(80, function () {
