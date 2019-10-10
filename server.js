@@ -58,7 +58,7 @@ server.get('/api/posts', function (req, res, next) {
 
  
 app.options('/', cors()) // enable pre-flight request for DELETE request
-app.del('/posts', cors(), function (req, res, next) {
+app.del('/', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
