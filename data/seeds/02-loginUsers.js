@@ -1,12 +1,13 @@
 
 exports.seed = function(knex) {
   // Deletes ALL existing entries
-  return knex('loginUsers').del()
-    .then(function () {
-      // Inserts seed entries
-      return knex('loginUsers').insert([
-        {userName: 'momo', password:'lambda'},
-        {userName: 'ambi', password:'bambi'},
-      ]);
-    });
+ // Deletes ALL existing entries
+ return knex('registerUsers').del()
+ .then(function () {
+   // Inserts seed entries
+   return knex('registerUsers').insert([
+     {email: 'test', username:'test', password:'test'},
+     {email: 'a_tpeterson@yahoo.com', username:'manita', password:'manita'},
+   ]);
+ });
 };

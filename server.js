@@ -10,6 +10,7 @@ const cors = require('cors');
 
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router.js');
+const postsRouter = require('./posts/post-router')
 const sessionOptions = {
 name: 'monkey',
 secret: 'mywhiteunicornisactuallygeenwithagoldhorn',
@@ -41,6 +42,7 @@ server.use(session(sessionOptions));
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
+server.use('/api/posts', postsRouter);
 
 server.get('/', (req, res) => {
   res.json({ api: 'up' });

@@ -1,0 +1,68 @@
+const express = require("express");
+const Posts = require("./post-model");
+
+const router = express.Router();
+
+router.get("/", async (req, res) => {
+  const { id } = req.params;
+  const post = await Posts.findAllPostsByUser(id);
+
+  try {
+    res.status(200).json(post);
+  } catch ({ err }) {
+    res.status(500).json({
+      err,
+      message: `Could not retrieve posts from user with id of ${id}...`
+    });
+  }
+});
+
+router.post("/new", async (req, res) => {
+  const postData = req.body;
+  const newPost = await Posts.addPost(postData);
+
+  try {
+    res.status(201).json({ message: "added new post.", newPost });
+  } catch ({ err }) {
+    res.status(500).json({ err, message: "Could not add new post." });
+  }
+});
+
+router.put("/post/:id", async (req, res) => {
+  const { id } = req.params;
+  const change = req.body;
+
+  try {
+    const count = await Posts.updatePost(id, change);
+
+    if (count) {
+      res.json({ updated: count });
+    } else {
+      res
+        .status(404)
+        .json({ message: `Could not find Post with the given id of ${id}` });
+    }
+  } catch ({ err }) {
+    res.status(500).json({ err, message: "Could not update Post." });
+  }
+});
+
+router.delete("/post/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const count = await Posts.removePost(id);
+
+    if (count) {
+      res.json({ removed: count });
+    } else {
+      res
+        .status(404)
+        .json({ message: "Could not find Post with the given id" });
+    }
+  } catch ({ err }) {
+    res.status(500).json({ err, message: "Could not delete Post" });
+  }
+});
+
+module.exports = router;
