@@ -58,16 +58,16 @@ server.use('/api/users', usersRouter);
 
 
 
-server.get('/api/posts/', function (req, res, next) {
+server.get('/api/posts/posts', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
 
 server.use((req , res , next) => {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin: https://fitforthesoul.netlify.com", "*");
   res.header("Access-Control-Allow-Credentials", true);
 res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+res.header("Access-Control-Allow-Headers: https://fitforthesoul.netlify.com", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
 next();
 });
 
