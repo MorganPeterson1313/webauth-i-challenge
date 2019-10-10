@@ -8,7 +8,7 @@ const server = express();
 const cors = require('cors');
 server.use(cors());
 
-server.use((req , res , next) => {
+server.use(('/api/posts', postsRouter), (req , res , next) => {
   res.header("Access-Control-Allow-Origin : https://fitforthesoul.netlify.com" , "*");
   res.header("Access-Control-Allow-Credentials", true);
 res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS','Access-Control-Allow-Headers');
