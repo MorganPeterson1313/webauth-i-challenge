@@ -5,15 +5,16 @@ const express = require('express');
 const helmet = require('helmet');
 
 const server = express();
+
+server.use((req , res , next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+next();
+});
 const cors = require('cors');
 server.use(cors());
 
-server.use(('/api/posts', postsRouter), (req , res , next) => {
-  res.header("Access-Control-Allow-Origin : https://fitforthesoul.netlify.com" , "*");
-  res.header("Access-Control-Allow-Credentials", true);
-res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS','Access-Control-Allow-Headers');
-next();
-});
 
 
 
