@@ -51,6 +51,12 @@ server.use('/api/users', usersRouter);
 //   res.json({ api: 'up' });
 // });
 
+server.use((req , res , next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Credentials", true);
+res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+next();
+});
 
 server.get('/api/posts', function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for a Single Route'})
