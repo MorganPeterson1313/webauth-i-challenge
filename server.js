@@ -3,8 +3,9 @@ const knexSessionStore = require('connect-session-knex')(session);
 const bcrypt = require('bcryptjs');
 const express = require('express');
 const helmet = require('helmet');
+
+const server = express();
 const cors = require('cors');
-var app = express()
 server.use(cors());
 
 
@@ -32,7 +33,7 @@ store: new knexSessionStore({
 }
 
 
-const server = express();
+
 
 
 server.use(express.json());
@@ -57,13 +58,13 @@ server.get('/api/posts', function (req, res, next) {
 
 
  
-app.options('/', cors()) // enable pre-flight request for DELETE request
-app.del('/', cors(), function (req, res, next) {
+server.options('/', cors()) // enable pre-flight request for DELETE request
+server.del('/', cors(), function (req, res, next) {
   res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
 
-app.listen(80, function () {
+server.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
 
