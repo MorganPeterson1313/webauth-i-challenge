@@ -3,19 +3,39 @@ const Posts = require("./post-model");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-  const  posts = req.body;
-  const post = await Posts.findPostsBy(posts);
+router.get("/", async (request, response) => {
+    try{
+        const posts = await
+Posts.find(request.query);
 
-  try {
-    res.status(200).json(post);
-  } catch ({ err }) {
-    res.status(500).json({
-      err,
-      message: `Could not retrieve posts...`
-    });
-  }
+    response.status(200).json(posts);
+    }
+catch (err) {
+    response.status(500).json({success:false,err})
+}
+
 });
+  
+  
+
+//     const  posts = req.body;
+
+
+
+
+
+
+//   const post = await Posts.findPostsBy(posts);
+
+//   try {
+//     res.status(200).json(post);
+//   } catch ({ err }) {
+//     res.status(500).json({
+//       err,
+//       message: `Could not retrieve posts...`
+//     });
+//   }
+// });
 
 router.post("/new", async (req, res) => {
   const postData = req.body;

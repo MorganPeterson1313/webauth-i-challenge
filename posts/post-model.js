@@ -6,12 +6,20 @@ module.exports = {
   findAllPostsByUser,
   findPostById,
   updatePost,
-  removePost
+  removePost,
+  find
 };
 
-function findPostBy(filter) {
-  return db("posts").where(filter);
-}
+
+function find() {
+    return db('posts').select('*');
+  }
+  
+
+
+// function findPostBy(filter) {
+//   return db("posts").where(filter);
+// }
 
 function findPostById(id) {
   return db("posts")
