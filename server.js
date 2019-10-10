@@ -20,7 +20,9 @@ server.use(cors());
 
 const authRouter = require('./auth/auth-router');
 const usersRouter = require('./users/users-router.js');
-const postsRouter = require('./posts/post-router')
+const postsRouter = require('./posts/post-router');
+
+
 const sessionOptions = {
 name: 'monkey',
 secret: 'mywhiteunicornisactuallygeenwithagoldhorn',
@@ -63,7 +65,7 @@ server.use('/api/users', usersRouter);
 
 
 server.get('/api/posts', function (req, res, next) {
-  res.json({msg: 'This is CORS-enabled for a Single Route'})
+  res.json({msg: 'This is CORS-enabled for all origins!'})
 })
 
 
